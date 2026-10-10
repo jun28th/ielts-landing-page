@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ms Phương Anh | IELTS Educator</title>
+ 
+  <!-- Chỉ bật hiệu ứng "reveal" khi JS chạy được (tránh trang trắng nếu JS lỗi) -->
+  <script>document.documentElement.classList.add('js');</script>
+ 
+  <!-- ===== FONT: Be Vietnam Pro ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+ 
+  <!-- ===== TAILWIND + BẢNG MÀU / CỠ CHỮ DÙNG CHUNG ===== -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Be Vietnam Pro"', 'sans-serif'] },
+          // 5 màu chính (trắng dùng sẵn class "white")
+          colors: {
+            brand: {
+              lemon: '#FFD500', // Vàng chanh
+              amber: '#FFC200', // Vàng cam
+              navy:  '#1B387F', // Xanh navy
+              deep:  '#030351'  // Xanh đậm
+            }
+          },
+          // 3 cỡ chữ: text-title / text-body / text-note
+          fontSize: {
+            title: ['clamp(30px, 7vw, 40px)', { lineHeight: '1.25' }], // 40px (tự co trên điện thoại)
+            body:  ['20px', { lineHeight: '1.7' }],
+            note:  ['15px', { lineHeight: '1.5' }]
+          }
+        }
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
+ 
+  <style>
+    /* =====================================================
+       0. BIẾN MÀU & NỀN TẢNG
+       ===================================================== */
+    :root{
+      --white:#FFFFFF;
+      --lemon:#FFD500;
+      --amber:#FFC200;
+      --navy:#1B387F;
+      --deep:#030351;
+      --line:rgba(27,56,127,.18);   /* viền nhạt = navy pha loãng */
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{width:100%;margin:0;overflow-x:hidden;font-family:"Be Vietnam Pro",sans-serif;font-size:20px;color:var(--deep);background:var(--white)}
+    .page-shell{width:100%;overflow:hidden}
+ 
+    /* =====================================================
+       1. THÀNH PHẦN DÙNG CHUNG
+       ===================================================== */
+    .focus-ring:focus-visible{outline:3px solid var(--amber);outline-offset:4px}
+    .section-kicker{letter-spacing:.16em;text-transform:uppercase}
+    .gold-rule{width:62px;height:5px;border-radius:999px;background:var(--amber)}
+    .soft-card{transition:transform .25s,box-shadow .25s}
+    .soft-card:hover{transform:translateY(-5px);box-shadow:0 20px 42px rgba(3,3,81,.13)}
+    .js .reveal{opacity:0;transform:translateY(20px);transition:opacity .65s,transform .65s}
+    .js .reveal.visible{opacity:1;transform:none}
+ 
+    /* =====================================================
+       2. HEADER
+       ===================================================== */
+    .top-nav{background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+    .nav-link{position:relative}
+    .nav-link:after{content:"";position:absolute;left:0;bottom:-7px;width:100%;height:2px;background:var(--amber);transform:scaleX(0);transform-origin:left;transition:transform .2s}
+    .nav-link:hover:after,.nav-link:focus-visible:after{transform:scaleX(1)}
+    .mobile-panel{max-height:0;overflow:hidden;transition:max-height .3s}
+    .mobile-panel.open{max-height:480px}
+ 
+    /* =====================================================
+       3. HOẠ TIẾT TRANG TRÍ CỦA CÁC SECTION
+       ===================================================== */
+    .academic-section{position:relative;isolation:isolate}
+    .academic-section:before{content:"";position:absolute;z-index:-1;width:180px;height:180px;border-radius:50%;border:1px solid rgba(255,194,0,.35);box-shadow:0 0 0 16px rgba(255,194,0,.06),0 0 0 36px rgba(27,56,127,.03);pointer-events:none}
+    .academic-section:after{content:"";position:absolute;z-index:-1;width:165px;height:100px;background:repeating-linear-gradient(135deg,transparent 0 10px,rgba(27,56,127,.09) 10px 11px);opacity:.5;pointer-events:none}
+    .geo-wave{position:absolute;z-index:-1;width:clamp(120px,20vw,240px);height:100px;left:-32px;bottom:7%;opacity:.17;pointer-events:none}
+    .geo-wave path{fill:none;stroke:var(--navy);stroke-width:1.2}
+    .geo-orbit{position:absolute;z-index:-1;width:170px;height:170px;left:-60px;bottom:12%;border:1px solid rgba(27,56,127,.15);border-radius:50%;box-shadow:0 0 0 15px rgba(255,194,0,.05),0 0 0 31px rgba(27,56,127,.03);pointer-events:none}
+    .geo-shape{position:absolute;z-index:-1;width:125px;height:92px;left:5%;bottom:5%;background:linear-gradient(135deg,rgba(27,56,127,.06),rgba(255,213,0,.14));border-radius:58% 42% 65% 35%;transform:rotate(-18deg);pointer-events:none}
+    .motif-row{position:absolute;right:2%;top:12%;display:flex;gap:12px;pointer-events:none;z-index:-1}
+    .wit-motif{width:clamp(30px,5vw,62px);height:clamp(30px,5vw,62px);color:var(--amber);opacity:.28;transform:rotate(-8deg)}
+    .wit-motif.navy{color:var(--navy);opacity:.14}
+    .wit-motif svg{width:100%;height:100%;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+ 
+    /* vị trí hoạ tiết theo từng section */
+    #kinh-nghiem:before{right:-92px;top:13%}  #kinh-nghiem:after{right:2%;bottom:10%}
+    #lo-trinh:before{left:-80px;bottom:8%}    #lo-trinh:after{right:3%;top:18%}
+    #phuong-phap:before{right:-80px;bottom:6%;border-color:rgba(255,213,0,.35)}
+    #phuong-phap:after{display:none}
+    #phuong-phap .geo-wave path{stroke:var(--white)}
+    #ket-qua:before{right:-80px;top:7%}       #ket-qua:after{right:2%;bottom:8%}
+ 
+    /* =====================================================
+       4. SECTION LỘ TRÌNH + PHƯƠNG PHÁP (đường nối nét đứt)
+       ===================================================== */
+    .path-grid{position:relative}
+    .path-grid:before{content:"";position:absolute;left:16%;right:16%;top:50%;border-top:2px dashed rgba(27,56,127,.25);z-index:-1}
+    .method-grid{position:relative}
+    .method-grid:before{content:"";position:absolute;top:54px;left:18%;right:18%;border-top:2px dashed var(--amber);z-index:0}
+    .method-grid article{position:relative;z-index:1}
+ 
+    /* =====================================================
+       5. SECTION KẾT QUẢ HỌC VIÊN (lưới ảnh feedback)
+       ===================================================== */
+    .feedback-slot{aspect-ratio:4/3;min-height:250px;position:relative;overflow:hidden;border:2px dashed rgba(27,56,127,.4);background:var(--white);transition:transform .2s,border-color .2s}
+    .feedback-slot:hover{transform:translateY(-3px);border-color:var(--deep)}
+    .feedback-slot>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:8px;background:var(--white)}
+    .feedback-number{position:absolute;top:10px;left:10px;z-index:2}
+ 
+    /* =====================================================
+       6. SECTION LIÊN HỆ
+       ===================================================== */
+    .status-message{min-height:28px}
+ 
+    /* =====================================================
+       7. RESPONSIVE
+       ===================================================== */
+    @media(min-width:1024px){
+      .feedback-slot{height:clamp(220px,24vw,300px);aspect-ratio:auto;min-height:0}
+    }
+    @media(min-width:768px) and (max-width:1023px){
+      .geo-wave{width:155px;left:-45px}
+      .geo-orbit{width:130px;height:130px;left:-70px}
+      .geo-shape{width:90px;height:68px}
+    }
+    @media(max-width:767px){
+      .path-grid:before,.method-grid:before{display:none}
+      .academic-section:before{width:105px;height:105px}
+      .academic-section:after{width:90px;height:60px;opacity:.2}
+      .geo-wave{width:120px;height:58px;left:-48px;opacity:.12}
+      .geo-orbit{width:105px;height:105px;left:-65px}
+      .geo-shape{width:76px;height:58px;left:2%}
+      .motif-row{right:3%;top:5%;gap:5px}
+      .wit-motif{width:30px;height:30px;opacity:.18}
+      .feedback-slot{min-height:180px;aspect-ratio:3/4}
+    }
+    @media(prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      .js .reveal,.soft-card,.feedback-slot,.mobile-panel{transition:none}
+    }
+  </style>
+</head>
+ 
+<body>
+<div class="page-shell">
+ 
+  <!-- =====================================================================
+       HEADER — logo + menu điều hướng
+       ===================================================================== -->
+  <header class="top-nav fixed top-0 z-50 w-full">
+    <nav class="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-3 lg:px-8" aria-label="Điều hướng chính">
+      <a href="#gioi-thieu" class="focus-ring flex items-center gap-3 rounded-lg">
+        <img class="h-11 w-28 object-contain object-left" src="photo/brandLogo.jpg" alt="Logo WIT">
+        <span class="hidden border-l border-brand-navy/20 pl-3 text-note font-extrabold text-brand-deep sm:inline">Ms Phương Anh</span>
+      </a>
+ 
+      <!-- Menu desktop -->
+      <div class="hidden items-center gap-6 lg:flex">
+        <a class="nav-link focus-ring text-note font-semibold text-brand-navy" href="#gioi-thieu">Giới thiệu</a>
+        <a class="nav-link focus-ring text-note font-semibold text-brand-navy" href="#kinh-nghiem">Kinh nghiệm</a>
+        <a class="nav-link focus-ring text-note font-semibold text-brand-navy" href="#lo-trinh">Lộ trình</a>
+        <a class="nav-link focus-ring text-note font-semibold text-brand-navy" href="#lich-khai-giang">Lịch khai giảng</a>
+        <a class="nav-link focus-ring text-note font-semibold text-brand-navy" href="#phuong-phap">Phương pháp</a>
+        <!-- <a class="nav-link focus-ring text-note font-semibold text-brand-navy" href="#ket-qua">Kết quả học viên</a> -->
+      </div>
+      <a class="focus-ring hidden rounded-xl bg-brand-deep px-5 py-3 text-note font-bold text-white shadow-sm transition hover:-translate-y-0.5 lg:block" href="#lien-he">Đăng ký tư vấn</a>
+ 
+      <!-- Nút mở menu mobile -->
+      <button id="menu-button" class="focus-ring rounded-lg p-2 text-brand-deep lg:hidden" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="mobile-menu">
+        <i data-lucide="menu" width="28" height="28"></i>
+      </button>
+    </nav>
+ 
+    <!-- Menu mobile -->
+    <div id="mobile-menu" class="mobile-panel border-t border-brand-navy/10 bg-white lg:hidden">
+      <nav class="flex flex-col px-5 py-3" aria-label="Điều hướng di động">
+        <a class="focus-ring rounded-lg px-3 py-3 text-body font-semibold text-brand-deep" href="#gioi-thieu">Giới thiệu</a>
+        <a class="focus-ring rounded-lg px-3 py-3 text-body font-semibold text-brand-deep" href="#kinh-nghiem">Kinh nghiệm</a>
+        <a class="focus-ring rounded-lg px-3 py-3 text-body font-semibold text-brand-deep" href="#lo-trinh">Lộ trình 3 khóa học</a>
+        <a class="focus-ring rounded-lg px-3 py-3 text-body font-semibold text-brand-deep" href="#phuong-phap">Phương pháp</a>
+        <a class="focus-ring rounded-lg px-3 py-3 text-body font-semibold text-brand-deep" href="#ket-qua">Kết quả học viên</a>
+        <a class="focus-ring rounded-lg px-3 py-3 text-body font-semibold text-brand-deep" href="#lich-khai-giang">Lịch khai giảng</a>
+        <a class="focus-ring rounded-lg px-3 py-3 text-body font-semibold text-brand-deep" href="#lien-he">Liên hệ</a>
+      </nav>
+    </div>
+  </header>
+ 
+  <main>
+ 
+    <!-- =====================================================================
+         SECTION 1 — ẢNH BÌA
+         ===================================================================== -->
+    <section id="anh-bia" class="w-full pt-[68px]" aria-label="Ảnh bìa WIT">
+      <img class="w-full object-cover" style="aspect-ratio:2460/936" src="photo/coverPhoto.png" alt="WIT IELTS Mentor banner">
+    </section>
+ 
+    <!-- =====================================================================
+         SECTION 2 — GIỚI THIỆU (hồ sơ giáo viên, thành tích, chứng chỉ)
+         ===================================================================== -->
+    <section id="gioi-thieu" class="w-full border-y-[3px] border-brand-amber bg-white py-20 md:py-28">
+      <div class="mx-auto w-full max-w-7xl px-5 lg:px-8">
+ 
+        <!-- Tiêu đề section -->
+        <div class="reveal mb-14 max-w-4xl">
+          <p class="section-kicker text-note font-bold text-brand-navy">Hồ sơ giảng dạy</p>
+          <div class="gold-rule mt-5"></div>
+          <h1 class="mt-6 text-title font-extrabold tracking-tight text-brand-deep">THÔNG TIN GIÁO VIÊN</h1>
+        </div>
+ 
+        <div class="grid gap-12 lg:grid-cols-[.76fr_1.24fr] lg:gap-16">
+ 
+          <!-- Cột trái: ảnh + lời giới thiệu -->
+          <aside class="reveal">
+            <div class="relative mx-auto max-w-md">
+              <div class="absolute -left-4 -top-4 h-24 w-24 rounded-[1.75rem] bg-brand-amber"></div>
+              <img class="relative aspect-[4/5] w-full rounded-[1.8rem] border-[7px] border-white object-cover shadow-[0_25px_55px_rgba(3,3,81,.17)]" loading="lazy" src="photo/teacherPhoto.png" alt="Chân dung Ms Phương Anh">
+            </div>
+ 
+            <div class="mt-8">
+              <h2 class="text-body font-extrabold text-brand-deep">Đồng hành cùng bạn — Ms Phương Anh</h2>
+              <p class="mt-4 text-body text-brand-navy">Xây dựng nền tảng tiếng Anh vững chắc, phát triển tư duy học thuật và chinh phục mục tiêu IELTS bằng một lộ trình rõ ràng, cá nhân hóa.</p>
+ 
+              <div class="mt-6 grid gap-3 sm:grid-cols-2">
+                <div class="rounded-2xl border-2 border-brand-amber bg-white px-4 py-5 text-center shadow-sm">
+                  <span class="mb-2 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-lemon text-brand-deep"><i data-lucide="award" width="30" height="30"></i></span>
+                  <p class="text-body font-extrabold leading-snug text-brand-deep">GIÁO VIÊN IELTS</p>
+                </div>
+                <div class="rounded-2xl border-2 border-brand-deep bg-white px-4 py-5 text-center shadow-sm">
+                  <span class="mb-2 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-deep text-white"><i data-lucide="graduation-cap" width="30" height="30"></i></span>
+                  <p class="text-body font-extrabold leading-snug text-brand-deep">MENTOR CUỘC THI</p>
+                </div>
+              </div>
+ 
+              <div class="mt-4 flex items-center gap-3 rounded-2xl border-2 border-brand-amber bg-white px-4 py-4 shadow-sm">
+                <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-lemon text-brand-deep"><i data-lucide="badge-check" width="30" height="30"></i></span>
+                <p class="text-body font-extrabold leading-snug text-brand-deep">Đối tác đăng ký thi IELTS chính thức với Hội Đồng Anh British Council</p>
+              </div>
+ 
+              <a class="focus-ring mt-7 inline-flex rounded-xl bg-brand-navy px-6 py-4 text-body font-bold text-white shadow-md transition hover:-translate-y-0.5 hover:bg-brand-deep" href="#lien-he">Đăng ký tư vấn</a>
+            </div>
+          </aside>
+ 
+          <!-- Cột phải: số liệu, thành tích, chứng chỉ -->
+          <div class="reveal">
+ 
+            <!-- 4 ô số liệu -->
+            <div class="grid gap-4 sm:grid-cols-2">
+              <article class="rounded-2xl border border-brand-navy/20 bg-white p-5 shadow-sm">
+                <p class="text-body font-extrabold text-brand-deep">IELTS 8.0 x2</p>
+                <p class="mt-1 text-note font-medium text-brand-navy">Năng lực IELTS</p>
+              </article>
+              <article class="rounded-2xl border border-brand-amber bg-brand-lemon p-5 shadow-sm">
+                <p class="text-body font-extrabold text-brand-deep">TOEIC 970/990</p>
+                <p class="mt-1 text-note font-medium text-brand-deep">Năng lực tiếng Anh</p>
+              </article>
+              <article class="rounded-2xl border border-brand-navy/20 bg-brand-navy/5 p-5 shadow-sm">
+                <p class="text-body font-extrabold text-brand-deep">TESOL 150H</p>
+                <p class="mt-1 text-note font-medium text-brand-navy">Nền tảng sư phạm</p>
+              </article>
+              <article class="rounded-2xl border border-brand-navy/20 bg-white p-5 shadow-sm">
+                <p class="text-body font-extrabold text-brand-deep">4 năm</p>
+                <p class="mt-1 text-note font-medium text-brand-navy">Kinh nghiệm giảng dạy</p>
+              </article>
+            </div>
+ 
+            <!-- Thành tích & hoạt động -->
+            <section class="mt-7 rounded-3xl border border-brand-navy/20 bg-brand-navy/5 p-7">
+              <div class="flex items-center gap-3">
+                <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-lemon text-brand-deep"><i data-lucide="trophy" width="28" height="28"></i></span>
+                <h2 class="text-body font-extrabold text-brand-deep">Thành tích &amp; hoạt động nổi bật</h2>
+              </div>
+              <div class="mt-6 grid gap-3 sm:grid-cols-2">
+                <p class="rounded-xl border border-brand-amber bg-white px-4 py-3 text-body font-bold text-brand-deep">Quý quân UEH Debate 2024</p>
+                <p class="rounded-xl border border-brand-amber bg-white px-4 py-3 text-body font-bold text-brand-deep">Á quân UEH Translator</p>
+              </div>
+              <p class="mt-6 text-body text-brand-navy">Đại sứ/ Đối tác truyền thông/ Diễn giả tại các tổ chức, cuộc thi và cộng đồng sinh viên:</p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="rounded-full border border-brand-amber bg-white px-3 py-2 text-note font-semibold text-brand-deep">Vinamilk</span>
+                <span class="rounded-full border border-brand-amber bg-white px-3 py-2 text-note font-semibold text-brand-deep">Google</span>
+                <span class="rounded-full border border-brand-amber bg-white px-3 py-2 text-note font-semibold text-brand-deep">YBOX</span>
+                <span class="rounded-full border border-brand-amber bg-white px-3 py-2 text-note font-semibold text-brand-deep">AIESEC</span>
+                <span class="rounded-full border border-brand-amber bg-white px-3 py-2 text-note font-semibold text-brand-deep">FTU2</span>
+                <span class="rounded-full border border-brand-amber bg-white px-3 py-2 text-note font-semibold text-brand-deep">UEH Debate</span>
+                <span class="rounded-full border border-brand-amber bg-white px-3 py-2 text-note font-semibold text-brand-deep">UEH Translator</span>
+                <span class="rounded-full border border-brand-amber bg-white px-3 py-2 text-note font-semibold text-brand-deep">UEH BELL</span>
+                <span class="rounded-full border border-brand-amber bg-white px-3 py-2 text-note font-semibold text-brand-deep">TEDxTanDinh</span>
+                <span class="rounded-full border border-brand-amber bg-white px-3 py-2 text-note font-semibold text-brand-deep">SUS - Swinburne Business Club</span>
+                <span class="rounded-full border border-brand-amber bg-white px-3 py-2 text-note font-semibold text-brand-deep">TEDxHCMIU</span>
+                <span class="rounded-full border border-brand-amber bg-white px-3 py-2 text-note font-semibold text-brand-deep">RMIT</span>
+              </div>
+            </section>
+ 
+            <!-- Chuyên môn & chứng chỉ -->
+            <div class="mt-10">
+              <p class="section-kicker text-note font-bold text-brand-navy">Chuyên môn &amp; chứng chỉ</p>
+              <h2 class="mt-3 text-body font-extrabold text-brand-deep">Nền tảng chuyên môn</h2>
+            </div>
+            <div class="mt-7 grid gap-5 sm:grid-cols-2">
+              <article class="soft-card overflow-hidden rounded-3xl border border-brand-amber bg-white shadow-md">
+                <img class="h-auto w-full object-contain" loading="lazy" src="photo/ieltsScore.png" alt="IELTS Test Report Form">
+                <div class="p-6">
+                  <h3 class="text-body font-extrabold text-brand-deep">IELTS 8.0 x2</h3>
+                  <p class="mt-1 text-note text-brand-navy">Speaking 8.0 | Writing 7.5</p>
+                </div>
+              </article>
+              <article class="soft-card overflow-hidden rounded-3xl border border-brand-amber bg-white shadow-md">
+                <img class="h-auto w-full object-contain" loading="lazy" src="photo/toeicForm.png" alt="TOEIC Official Score Certificate">
+                <div class="p-6">
+                  <h3 class="text-body font-extrabold text-brand-deep">TOEIC 970/990</h3>
+                  <p class="mt-1 text-note text-brand-navy">Chứng chỉ năng lực tiếng Anh.</p>
+                </div>
+              </article>
+              <article class="soft-card overflow-hidden rounded-3xl border border-brand-amber bg-white shadow-md">
+                <img class="h-auto w-full object-contain" loading="lazy" src="photo/tesolScore.png" alt="Arizona State University Teaching English to Speakers of Other Languages certificate">
+                <div class="p-6">
+                  <h3 class="text-body font-extrabold text-brand-deep">TESOL 150H</h3>
+                  <p class="mt-1 text-note text-brand-navy">Cấp bởi Arizona State University.</p>
+                </div>
+              </article>
+              <article class="soft-card overflow-hidden rounded-3xl border border-brand-amber bg-white shadow-md">
+                <img class="h-auto w-full object-contain" loading="lazy" src="photo/ieltsTraining.png" alt="IDP IELTS Teacher Training certificate of completion">
+                <div class="p-6">
+                  <h3 class="text-body font-extrabold leading-snug text-brand-deep">Chứng chỉ IELTS Assessment Training — IDP IELTS</h3>
+                  <p class="mt-1 text-note text-brand-navy">Chứng nhận hoàn thành khóa IELTS Teacher Training của IDP IELTS.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <!-- =====================================================================
+         SECTION 3 — KINH NGHIỆM
+         ===================================================================== -->
+    <section id="kinh-nghiem" class="academic-section w-full bg-brand-navy/5 py-20 md:py-28">
+      <!-- hoạ tiết trang trí -->
+      <span class="geo-orbit" aria-hidden="true"></span>
+      <span class="geo-shape" aria-hidden="true"></span>
+      <svg class="geo-wave" viewBox="0 0 240 100" aria-hidden="true"><path d="M0 30 C45 5 75 75 120 48 S195 20 240 55 M0 55 C45 30 75 100 120 73 S195 45 240 80"></path></svg>
+      <div class="motif-row" aria-hidden="true">
+        <span class="wit-motif"><svg viewBox="0 0 48 48"><path d="M8 10h32v22H8zM8 14l16 10 16-10M18 32l-5 7m22-7 5 7"></path></svg></span>
+        <span class="wit-motif navy"><svg viewBox="0 0 48 48"><path d="M10 8h28v32H10zM16 16h16M16 23h16M16 30h11"></path></svg></span>
+      </div>
+ 
+      <div class="mx-auto grid w-full max-w-7xl gap-14 px-5 lg:grid-cols-[.85fr_1.15fr] lg:px-8">
+        <!-- Ảnh -->
+        <div class="reveal">
+          <div class="overflow-hidden rounded-3xl border border-brand-navy/20 bg-white p-3 shadow-[0_18px_44px_rgba(3,3,81,.09)]">
+            <img class="aspect-[4/5] w-full rounded-2xl object-cover" loading="lazy" src="photo/uehDebate.png" alt="Ms Phương Anh nhận giải Quý quân UEH Debate 2024">
+          </div>
+        </div>
+ 
+        <!-- Nội dung -->
+        <div class="reveal self-center">
+          <p class="section-kicker text-note font-bold text-brand-navy">Kinh nghiệm</p>
+          <div class="gold-rule mt-5"></div>
+          <h2 class="mt-6 text-title font-extrabold tracking-tight text-brand-deep">Kinh nghiệm giảng dạy thực chiến</h2>
+          <p class="mt-6 text-body font-bold text-brand-navy">4 năm kinh nghiệm gia sư — giảng dạy</p>
+ 
+          <div class="mt-9 grid gap-5 sm:grid-cols-2">
+            <article class="soft-card rounded-2xl border border-brand-navy/20 bg-white p-6">
+              <i data-lucide="book-open" class="text-brand-navy" width="44" height="44"></i>
+              <h3 class="mt-5 text-body font-extrabold text-brand-deep">The Forum</h3>
+              <p class="mt-2 text-note text-brand-navy">Kinh nghiệm giảng dạy tại The Forum.</p>
+            </article>
+            <article class="soft-card rounded-2xl border border-brand-navy/20 bg-white p-6">
+              <i data-lucide="presentation" class="text-brand-amber" width="44" height="44"></i>
+              <h3 class="mt-5 text-body font-extrabold text-brand-deep">ZIM Academy</h3>
+              <p class="mt-2 text-note text-brand-navy">Kinh nghiệm giảng dạy tại ZIM Academy.</p>
+            </article>
+            <article class="soft-card rounded-2xl border border-brand-navy/20 bg-white p-6">
+              <i data-lucide="school" class="text-brand-amber" width="44" height="44"></i>
+              <h3 class="mt-5 text-body font-extrabold leading-snug text-brand-deep">Gia sư học sinh Vinschool theo chương trình Cambridge</h3>
+            </article>
+            <article class="soft-card rounded-2xl border border-brand-navy/20 bg-white p-6">
+              <i data-lucide="mic-2" class="text-brand-deep" width="44" height="44"></i>
+              <h3 class="mt-5 text-body font-extrabold leading-snug text-brand-deep">Mentor Tranh biện - Gia sư Hùng biện Quốc tế</h3>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <!-- =====================================================================
+         SECTION 4 — LỘ TRÌNH 3 KHÓA HỌC (LIT / HIT / WIT)
+         ===================================================================== -->
+    <section id="lo-trinh" class="academic-section w-full bg-white py-20 md:py-28">
+      <!-- hoạ tiết trang trí -->
+      <span class="geo-orbit" aria-hidden="true"></span>
+      <span class="geo-shape" aria-hidden="true"></span>
+      <svg class="geo-wave" viewBox="0 0 240 100" aria-hidden="true"><path d="M0 30 C45 5 75 75 120 48 S195 20 240 55 M0 55 C45 30 75 100 120 73 S195 45 240 80"></path></svg>
+      <div class="motif-row" aria-hidden="true">
+        <span class="wit-motif navy"><svg viewBox="0 0 48 48"><path d="M7 12c8-4 13-2 17 2v25c-4-4-9-6-17-2zM41 12c-8-4-13-2-17 2v25c4-4 9-6 17-2z"></path></svg></span>
+        <span class="wit-motif"><svg viewBox="0 0 48 48"><circle cx="23" cy="25" r="14"></circle><circle cx="23" cy="25" r="8"></circle><path d="m27 21 13-13m-7 0h7v7"></path></svg></span>
+      </div>
+ 
+      <div class="mx-auto w-full max-w-7xl px-5 lg:px-8">
+        <!-- Tiêu đề section -->
+        <div class="reveal mx-auto max-w-3xl text-center">
+          <p class="section-kicker text-note font-bold text-brand-navy">Lộ trình học</p>
+          <div class="gold-rule mx-auto mt-5"></div>
+          <h2 class="mt-6 text-title font-extrabold tracking-tight text-brand-deep">Thông tin 3 khóa học</h2>
+        </div>
+ 
+        <div class="mt-12 grid gap-6 md:grid-cols-3">
+ 
+          <!-- Khóa LIT -->
+          <article class="soft-card reveal rounded-3xl border border-brand-amber bg-brand-amber p-8 shadow-[0_12px_30px_rgba(3,3,81,.08)]">
+            <div class="flex items-center gap-4">
+              <!-- <span class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/50 text-brand-deep"><i data-lucide="flame" width="40" height="40"></i></span> -->
+              <h3 class="text-title font-extrabold text-white">LIT</h3>
+            </div>
+            <p class="mt-8 text-body font-bold text-brand-navy">Thắp lửa: Khơi dậy động lực và tự tin bắt đầu</p>
+            <p class="mt-5 text-body font-bold text-brand-navy">Thời lượng: 36 buổi</p>
+            <div class="mt-6 border-t border-brand-deep/25 pt-5">
+              <p class="text-body font-semibold text-brand-navy">Level đầu vào: 3.0–3.5</p>
+              <p class="mt-2 text-body font-semibold text-brand-navy">Level đầu ra: 4.5</p>
+            </div>
+            <p class="mt-7 text-note font-extrabold text-white">LIT — Learn · Implement · Transfer</p>
+            <p class="mt-1 text-note font-semibold text-brand-navy">→ Build the foundation</p>
+          </article>
+ 
+          <!-- Khóa HIT -->
+          <article class="soft-card reveal rounded-3xl bg-brand-navy p-8 shadow-[0_12px_30px_rgba(3,3,81,.2)]">
+            <div class="flex items-center gap-4">
+              <!-- <span class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10 text-brand-amber"><i data-lucide="trending-up" width="40" height="40"></i></span> -->
+              <h3 class="text-title font-extrabold text-brand-lemon">HIT</h3>
+            </div>
+            <p class="mt-8 text-body font-bold text-white">Tạo đà: Hình thành phương pháp &amp; nhịp học</p>
+            <p class="mt-5 text-body font-bold text-white">Thời lượng: 36 buổi</p>
+            <div class="mt-6 border-t border-white/25 pt-5">
+              <p class="text-body font-semibold text-white">Level đầu vào: 4.5</p>
+              <p class="mt-2 text-body font-semibold text-white">Level đầu ra: 5.5+</p>
+            </div>
+            <p class="mt-7 text-note font-extrabold text-brand-lemon">HIT — Highlight · Improve · Transform</p>
+            <p class="mt-1 text-note font-semibold text-white">→ Build the performance</p>
+          </article>
+ 
+          <!-- Khóa WIT -->
+          <article class="soft-card reveal rounded-3xl border-2 border-brand-deep bg-white p-8 shadow-[0_12px_30px_rgba(3,3,81,.08)]">
+            <div class="flex items-center gap-4">
+              <!-- <span class="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-navy/5">
+                <i data-lucide="flame" class="mr-[-8px] text-brand-amber" width="32" height="32"></i>
+                <i data-lucide="trending-up" class="mt-3 text-brand-deep" width="30" height="30"></i>
+              </span> -->
+              <h3 class="text-title font-extrabold text-brand-deep">WIT</h3>
+            </div>
+            <p class="mt-8 text-body font-bold text-brand-amber">Trưởng thành: Làm chủ việc học, tư duy và tự tin tiến xa</p>
+            <p class="mt-5 text-body font-bold text-brand-amber">Thời lượng: 36 buổi</p>
+            <div class="mt-6 border-t border-brand-deep/20 pt-5">
+              <p class="text-body font-semibold text-brand-amber">Level đầu vào: 5.5–6.0</p>
+              <p class="mt-2 text-body font-semibold text-brand-amber">Level đầu ra: 6.5+</p>
+            </div>
+            <p class="mt-7 text-note font-extrabold text-brand-deep">WIT — Wonder · Integrate · Think</p>
+            <p class="mt-1 text-note font-semibold text-brand-amber">→ Build the thinker</p>
+          </article>
+        </div>
+      </div>
+    </section>
+ 
+    <!-- =====================================================================
+         SECTION 5 — LỊCH KHAI GIẢNG
+         ===================================================================== -->
+    <section id="lich-khai-giang" class="w-full bg-white pb-20 md:pb-28" aria-labelledby="upcoming-classes-title">
+      <div class="mx-auto w-full max-w-7xl px-5 lg:px-8">
+        <!-- Tiêu đề section -->
+        <div class="reveal mx-auto max-w-3xl text-center">
+          <p class="section-kicker text-note font-bold text-brand-navy">Lịch khai giảng</p>
+          <div class="gold-rule mx-auto mt-5"></div>
+          <h2 id="upcoming-classes-title" class="mt-6 text-title font-extrabold tracking-tight text-brand-deep">Các lớp khai giảng sắp tới</h2>
+        </div>
+ 
+        <div class="reveal mx-auto mt-10 grid max-w-4xl gap-5 md:grid-cols-2">
+          <a href="https://docs.google.com/document/d/1sNRJbbaoTngR9-ILsi2Fzw9BIROCGzkZYeQOYUqsl2s/edit?tab=t.0" target="_blank" rel="noopener noreferrer" class="soft-card focus-ring block rounded-3xl border-2 border-brand-amber bg-white p-7 shadow-sm">
+            <h3 class="text-body font-extrabold text-brand-deep">Lớp WIT</h3>
+            <p class="mt-2 text-body text-brand-navy">Dự kiến khai giảng vào tháng 11</p>
+          </a>
+          <a href="https://docs.google.com/document/d/1Pz8QPOWAeY_mm-an2EgHfpHWxxTaq4Wz-qew5pjgBhk/edit?tab=t.0" target="_blank" rel="noopener noreferrer" class="soft-card focus-ring block rounded-3xl border-2 border-brand-navy/20 bg-brand-navy/5 p-7 shadow-sm">
+            <h3 class="text-body font-extrabold text-brand-deep">Lớp HIT</h3>
+            <p class="mt-2 text-body text-brand-navy">Dự kiến khai giảng vào tháng 12</p>
+          </a>
+        </div>
+      </div>
+    </section>
+ 
+    <!-- =====================================================================
+         SECTION 6 — PHƯƠNG PHÁP ĐỒNG HÀNH
+         ===================================================================== -->
+    <section id="phuong-phap" class="academic-section w-full bg-brand-navy py-20 md:py-28">
+      <!-- hoạ tiết trang trí -->
+      <svg class="geo-wave" viewBox="0 0 240 100" aria-hidden="true"><path d="M0 30 C45 5 75 75 120 48 S195 20 240 55 M0 55 C45 30 75 100 120 73 S195 45 240 80"></path></svg>
+      <div class="motif-row" aria-hidden="true">
+        <span class="wit-motif"><svg viewBox="0 0 48 48"><path d="M24 5a13 13 0 0 0-8 23v5h16v-5a13 13 0 0 0-8-23zM18 39h12M20 44h8"></path></svg></span>
+        <span class="wit-motif"><svg viewBox="0 0 48 48"><circle cx="24" cy="15" r="8"></circle><path d="M7 40c1-9 7-14 17-14s16 5 17 14M5 13h5m28 0h5"></path></svg></span>
+      </div>
+ 
+      <div class="mx-auto w-full max-w-7xl px-5 lg:px-8">
+        <!-- Tiêu đề section -->
+        <div class="reveal max-w-3xl">
+          <p class="section-kicker text-note font-bold text-brand-lemon">Phương pháp đồng hành</p>
+          <div class="gold-rule mt-5"></div>
+          <h2 class="mt-6 text-title font-extrabold tracking-tight text-white">Phương pháp đồng hành cá nhân hóa</h2>
+          <p class="mt-6 text-body text-white">Mỗi học viên được định hướng theo nền tảng, mục tiêu và nhịp học riêng, với lộ trình được điều chỉnh dựa trên tiến độ thực tế.</p>
+        </div>
+ 
+        <!-- 3 bước -->
+        <div class="method-grid mt-12 grid gap-5 md:grid-cols-3">
+          <article class="reveal rounded-2xl bg-white p-7">
+            <span class="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-lemon text-brand-deep"><i data-lucide="search-check" width="38" height="38"></i></span>
+            <h3 class="mt-6 text-body font-extrabold text-brand-deep">Đánh giá nền tảng</h3>
+          </article>
+          <article class="reveal rounded-2xl bg-white p-7">
+            <span class="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-lemon text-brand-deep"><i data-lucide="route" width="38" height="38"></i></span>
+            <h3 class="mt-6 text-body font-extrabold text-brand-deep">Thiết kế lộ trình</h3>
+          </article>
+          <article class="reveal rounded-2xl bg-white p-7">
+            <span class="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-lemon text-brand-deep"><i data-lucide="chart-no-axes-combined" width="38" height="38"></i></span>
+            <h3 class="mt-6 text-body font-extrabold text-brand-deep">Theo dõi và điều chỉnh</h3>
+          </article>
+        </div>
+ 
+        <!-- 3 cam kết -->
+        <div class="mt-5 grid gap-5 md:grid-cols-3">
+          <article class="soft-card reveal rounded-2xl bg-white p-7">
+            <i data-lucide="target" class="text-brand-navy" width="40" height="40"></i>
+            <h3 class="mt-6 text-body font-extrabold text-brand-deep">Mục tiêu rõ ràng</h3>
+            <p class="mt-2 text-note text-brand-navy">Mỗi giai đoạn học đều gắn với một mục tiêu phù hợp với nền tảng hiện tại.</p>
+          </article>
+          <article class="soft-card reveal rounded-2xl bg-white p-7">
+            <i data-lucide="clipboard-check" class="text-brand-navy" width="40" height="40"></i>
+            <h3 class="mt-6 text-body font-extrabold text-brand-deep">Theo dõi tiến độ</h3>
+            <p class="mt-2 text-note text-brand-navy">Tiến độ được rà soát để nhận diện nội dung cần củng cố trong từng chặng học.</p>
+          </article>
+          <article class="soft-card reveal rounded-2xl bg-white p-7">
+            <i data-lucide="trending-up" class="text-brand-navy" width="40" height="40"></i>
+            <h3 class="mt-6 text-body font-extrabold text-brand-deep">Điều chỉnh đúng lúc</h3>
+            <p class="mt-2 text-note text-brand-navy">Lộ trình và nhịp học được điều chỉnh dựa trên sự tiến bộ thực tế của từng học viên.</p>
+          </article>
+        </div>
+      </div>
+    <!-- </section>
+ 
+    <!-- =====================================================================
+         SECTION 7 — KẾT QUẢ HỌC VIÊN (ảnh feedback)
+         ===================================================================== -->
+    <!-- <section id="ket-qua" class="academic-section w-full bg-brand-navy/5 py-20 md:py-28"> --> 
+      <div class="mx-auto w-full max-w-7xl px-5 lg:px-8 py-20 md:py-10">
+        <!-- Tiêu đề section -->
+        <div class="reveal max-w-3xl">
+          <!-- <p class="section-kicker text-note font-bold text-brand-navy">Kết quả học viên</p> -->
+          <!-- <div class="gold-rule mt-5"></div> -->
+          <h2 class="mt-6 text-title font-extrabold tracking-tight text-white">Feedback học viên</h2>
+        </div>
+ 
+        <!-- Lưới ảnh feedback -->
+        <div class="reveal mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+          <div class="feedback-slot rounded-2xl">
+            <span class="feedback-number rounded-full bg-brand-lemon px-3 py-1 text-note font-bold text-brand-deep">Feedback 01</span>
+            <img loading="lazy" src="photo/feedback01.png" alt="Ảnh feedback học viên 01">
+          </div>
+          <div class="feedback-slot rounded-2xl">
+            <span class="feedback-number rounded-full bg-brand-lemon px-3 py-1 text-note font-bold text-brand-deep">Feedback 02</span>
+            <img loading="lazy" src="photo/feedback02.jpeg" alt="Ảnh feedback học viên 02">
+          </div>
+          <div class="feedback-slot rounded-2xl">
+            <span class="feedback-number rounded-full bg-brand-lemon px-3 py-1 text-note font-bold text-brand-deep">Feedback 03</span>
+            <img loading="lazy" src="photo/feedback03.png" alt="Ảnh feedback học viên 03">
+          </div>
+          <div class="feedback-slot rounded-2xl">
+            <span class="feedback-number rounded-full bg-brand-lemon px-3 py-1 text-note font-bold text-brand-deep">Feedback 04</span>
+            <img loading="lazy" src="photo/feedback04.png" alt="Ảnh feedback học viên 04">
+          </div>
+          <div class="feedback-slot rounded-2xl">
+            <span class="feedback-number rounded-full bg-brand-lemon px-3 py-1 text-note font-bold text-brand-deep">Feedback 05</span>
+            <img loading="lazy" src="photo/feedback05.png" alt="Ảnh feedback học viên 05">
+          </div>
+          <div class="feedback-slot rounded-2xl">
+            <span class="feedback-number rounded-full bg-brand-lemon px-3 py-1 text-note font-bold text-brand-deep">Feedback 06</span>
+            <img loading="lazy" src="photo/feedback06.png" alt="Ảnh feedback học viên 06">
+          </div>
+          <div class="feedback-slot rounded-2xl">
+            <span class="feedback-number rounded-full bg-brand-lemon px-3 py-1 text-note font-bold text-brand-deep">Feedback 07</span>
+            <img loading="lazy" src="photo/feedback07.png" alt="Ảnh feedback học viên 07">
+          </div>
+          <div class="feedback-slot rounded-2xl">
+            <span class="feedback-number rounded-full bg-brand-lemon px-3 py-1 text-note font-bold text-brand-deep">Feedback 08</span>
+            <img loading="lazy" src="photo/feedback08.jpeg" alt="Ảnh feedback học viên 08">
+          </div>
+          <div class="feedback-slot rounded-2xl">
+            <span class="feedback-number rounded-full bg-brand-lemon px-3 py-1 text-note font-bold text-brand-deep">Feedback 09</span>
+            <img loading="lazy" src="photo/feedback09.jpeg" alt="Ảnh feedback học viên 09">
+          </div>
+          <div class="feedback-slot rounded-2xl">
+            <span class="feedback-number rounded-full bg-brand-lemon px-3 py-1 text-note font-bold text-brand-deep">Feedback 10</span>
+            <img loading="lazy" src="photo/feedback10.png" alt="Ảnh feedback học viên 10">
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <!-- =====================================================================
+         SECTION 8 — LIÊN HỆ (form đăng ký tư vấn)
+         ===================================================================== -->
+    <section id="lien-he" class="w-full bg-white py-20 md:py-28">
+      <div class="mx-auto grid w-full max-w-7xl gap-11 px-5 lg:grid-cols-[.82fr_1.18fr] lg:px-8">
+        <!-- Tiêu đề section -->
+        <div class="reveal self-start">
+          <p class="section-kicker text-note font-bold text-brand-navy">Liên hệ</p>
+          <div class="gold-rule mt-5"></div>
+          <h2 class="mt-6 text-title font-extrabold tracking-tight text-brand-deep">Bắt đầu lộ trình IELTS phù hợp với bạn</h2>
+          <p class="mt-6 max-w-lg text-body text-brand-navy">Xác định mục tiêu, đánh giá nền tảng và xây dựng hướng học rõ ràng.</p>
+        </div>
+ 
+        <!-- Form -->
+        <form id="consultation-form" class="reveal rounded-3xl border border-brand-navy/20 bg-brand-navy/5 p-7 shadow-[0_16px_40px_rgba(3,3,81,.06)] md:p-9" novalidate>
+          <div class="grid gap-6">
+            <div>
+              <label class="mb-3 block text-body font-bold text-brand-deep" for="full-name">Họ và tên</label>
+              <input id="full-name" name="full_name" class="focus-ring w-full rounded-xl border border-brand-navy/30 bg-white px-4 py-4 text-body text-brand-deep" type="text" autocomplete="name" maxlength="200" required>
+            </div>
+            <div>
+              <label class="mb-3 block text-body font-bold text-brand-deep" for="contact-info">Email hoặc số điện thoại</label>
+              <input id="contact-info" name="contact_info" class="focus-ring w-full rounded-xl border border-brand-navy/30 bg-white px-4 py-4 text-body text-brand-deep" type="text" autocomplete="email" maxlength="200" required>
+            </div>
+            <div>
+              <label class="mb-3 block text-body font-bold text-brand-deep" for="ielts-goal">Mục tiêu IELTS</label>
+              <input id="ielts-goal" name="ielts_goal" class="focus-ring w-full rounded-xl border border-brand-navy/30 bg-white px-4 py-4 text-body text-brand-deep" type="text" maxlength="200" required>
+            </div>
+            <div>
+              <label class="mb-3 block text-body font-bold text-brand-deep" for="message">Lời nhắn</label>
+              <textarea id="message" name="message" class="focus-ring min-h-32 w-full resize-y rounded-xl border border-brand-navy/30 bg-white px-4 py-4 text-body text-brand-deep" rows="4" maxlength="2000"></textarea>
+            </div>
+            <button id="submit-button" class="focus-ring rounded-xl bg-brand-navy px-6 py-4 text-body font-bold text-white shadow-md transition hover:-translate-y-0.5 hover:bg-brand-deep disabled:opacity-60" type="submit">Đăng ký tư vấn</button>
+            <p id="form-status" class="status-message text-note font-semibold text-brand-deep" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </section>
+ 
+  </main>
+ 
+  <!-- =====================================================================
+       FOOTER
+       ===================================================================== -->
+  <footer class="w-full bg-brand-deep py-9">
+    <div class="mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 text-center md:flex-row md:items-center md:justify-between md:text-left lg:px-8">
+      <p class="text-body font-extrabold text-white">WIT</p>
+      <!-- <p class="text-note font-medium text-white">WIT</p> -->
+    </div>
+  </footer>
+ 
+</div>
+
+  <script>
+// ====== CẤU HÌNH: dán URL Web app của Apps Script (kết thúc bằng /exec) vào đây ======
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxmsSk3pWRvI7ccMYejBmWeeMgStJhLMpBtSWW-743qL1bBIsc5PFFwxE0vJVde9C2-Lw/exec";
+// =====================================================================================
+
+const menuButton = document.getElementById("menu-button"),
+      mobileMenu = document.getElementById("mobile-menu"),
+      form = document.getElementById("consultation-form"),
+      status = document.getElementById("form-status");
+
+function setStatus(message, tone) {
+  status.textContent = message;
+  status.className = "status-message text-sm font-medium leading-6 " + tone;
+}
+
+menuButton.addEventListener("click", () => {
+  const open = mobileMenu.classList.toggle("open");
+  menuButton.setAttribute("aria-expanded", String(open));
+});
+document.querySelectorAll("#mobile-menu a").forEach(link => link.addEventListener("click", () => {
+  mobileMenu.classList.remove("open");
+  menuButton.setAttribute("aria-expanded", "false");
+}));
+
+const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+  if (entry.isIntersecting) { entry.target.classList.add("visible"); observer.unobserve(entry.target); }
+}), { threshold: .1 });
+document.querySelectorAll(".reveal").forEach(element => observer.observe(element));
+
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+  const button = form.querySelector('button[type="submit"]'),
+        fullName = document.getElementById("full-name").value.trim(),
+        contactInfo = document.getElementById("contact-info").value.trim(),
+        ieltsGoal = document.getElementById("ielts-goal").value.trim(),
+        message = document.getElementById("message").value.trim();
+
+  if (!fullName || !contactInfo || !ieltsGoal) {
+    setStatus("Vui lòng hoàn thành Họ và tên, thông tin liên hệ và mục tiêu IELTS.", "text-red-700");
+    return;
+  }
+  if (!SHEET_ENDPOINT.startsWith("https://script.google.com/")) {
+    setStatus("Biểu mẫu chưa được cấu hình (thiếu URL Apps Script).", "text-red-700");
+    return;
+  }
+
+  button.disabled = true;
+  button.classList.add("opacity-60", "cursor-not-allowed");
+  setStatus("Đang gửi yêu cầu tư vấn...", "text-[#486581]");
+
+  try {
+    // Gửi dạng form-urlencoded: là "simple request" nên không bị CORS preflight chặn.
+    const response = await fetch(SHEET_ENDPOINT, {
+      method: "POST",
+      body: new URLSearchParams({
+        full_name: fullName,
+        contact_info: contactInfo,
+        ielts_goal: ieltsGoal,
+        message: message
+      })
+    });
+    const result = await response.json();
+    if (!result.ok) {
+      console.error("Apps Script error:", result.error);
+      setStatus("Chưa thể xác nhận yêu cầu. Vui lòng thử lại sau.", "text-red-700");
+      return;
+    }
+    form.reset();
+    setStatus("Yêu cầu tư vấn đã được gửi thành công. Ms Phương Anh sẽ phản hồi sớm nhất có thể.", "text-green-700");
+  } catch (error) {
+    console.error(error);
+    setStatus("Có lỗi xảy ra khi gửi yêu cầu. Vui lòng thử lại sau.", "text-red-700");
+  } finally {
+    button.disabled = false;
+    button.classList.remove("opacity-60", "cursor-not-allowed");
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => { lucide.createIcons(); });
+</script>
+</body></html>
