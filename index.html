@@ -31,9 +31,9 @@
           },
           // 3 cỡ chữ: text-title / text-body / text-note
           fontSize: {
-            title: ['clamp(30px, 7vw, 40px)', { lineHeight: '1.25' }], // 40px (tự co trên điện thoại)
-            body:  ['20px', { lineHeight: '1.7' }],
-            note:  ['15px', { lineHeight: '1.5' }]
+            title: ['clamp(20px, 7vw, 30px)', { lineHeight: '1.25' }], // 40px (tự co trên điện thoại)
+            body:  ['16px', { lineHeight: '1.7' }],
+            note:  ['14px', { lineHeight: '1.5' }]
           }
         }
       }
@@ -190,7 +190,6 @@
         <a class="focus-ring rounded-lg px-3 py-3 text-body font-semibold text-brand-deep" href="#kinh-nghiem">Kinh nghiệm</a>
         <a class="focus-ring rounded-lg px-3 py-3 text-body font-semibold text-brand-deep" href="#lo-trinh">Lộ trình 3 khóa học</a>
         <a class="focus-ring rounded-lg px-3 py-3 text-body font-semibold text-brand-deep" href="#phuong-phap">Phương pháp</a>
-        <a class="focus-ring rounded-lg px-3 py-3 text-body font-semibold text-brand-deep" href="#ket-qua">Kết quả học viên</a>
         <a class="focus-ring rounded-lg px-3 py-3 text-body font-semibold text-brand-deep" href="#lich-khai-giang">Lịch khai giảng</a>
         <a class="focus-ring rounded-lg px-3 py-3 text-body font-semibold text-brand-deep" href="#lien-he">Liên hệ</a>
       </nav>
@@ -259,19 +258,19 @@
             <div class="grid gap-4 sm:grid-cols-2">
               <article class="rounded-2xl border border-brand-navy/20 bg-white p-5 shadow-sm">
                 <p class="text-body font-extrabold text-brand-deep">IELTS 8.0 x2</p>
-                <p class="mt-1 text-note font-medium text-brand-navy">Năng lực IELTS</p>
+                <!-- <p class="mt-1 text-note font-medium text-brand-navy">Năng lực IELTS</p> -->
               </article>
               <article class="rounded-2xl border border-brand-amber bg-brand-lemon p-5 shadow-sm">
                 <p class="text-body font-extrabold text-brand-deep">TOEIC 970/990</p>
-                <p class="mt-1 text-note font-medium text-brand-deep">Năng lực tiếng Anh</p>
+                <!-- <p class="mt-1 text-note font-medium text-brand-deep">Năng lực tiếng Anh</p> -->
               </article>
-              <article class="rounded-2xl border border-brand-navy/20 bg-brand-navy/5 p-5 shadow-sm">
+              <article class="rounded-2xl border border-brand-navy/20 bg-brand-amber p-5 shadow-sm">
                 <p class="text-body font-extrabold text-brand-deep">TESOL 150H</p>
-                <p class="mt-1 text-note font-medium text-brand-navy">Nền tảng sư phạm</p>
+                <!-- <p class="mt-1 text-note font-medium text-brand-navy">Nền tảng sư phạm</p> -->
               </article>
-              <article class="rounded-2xl border border-brand-navy/20 bg-white p-5 shadow-sm">
-                <p class="text-body font-extrabold text-brand-deep">4 năm</p>
-                <p class="mt-1 text-note font-medium text-brand-navy">Kinh nghiệm giảng dạy</p>
+              <article class="rounded-2xl border border-brand-navy/20 bg-brand-navy/20 p-5 shadow-sm">
+                <p class="text-body font-extrabold text-brand-deep">4 năm kinh nghiệm giảng dạy</p>
+                <!-- <p class="mt-1 text-note font-medium text-brand-navy">Kinh nghiệm giảng dạy</p> -->
               </article>
             </div>
  
@@ -319,7 +318,7 @@
                 <img class="h-auto w-full object-contain" loading="lazy" src="photo/toeicForm.png" alt="TOEIC Official Score Certificate">
                 <div class="p-6">
                   <h3 class="text-body font-extrabold text-brand-deep">TOEIC 970/990</h3>
-                  <p class="mt-1 text-note text-brand-navy">Chứng chỉ năng lực tiếng Anh.</p>
+                  <!-- <p class="mt-1 text-note text-brand-navy">Chứng chỉ năng lực tiếng Anh.</p> -->
                 </div>
               </article>
               <article class="soft-card overflow-hidden rounded-3xl border border-brand-amber bg-white shadow-md">
@@ -374,12 +373,12 @@
             <article class="soft-card rounded-2xl border border-brand-navy/20 bg-white p-6">
               <i data-lucide="book-open" class="text-brand-navy" width="44" height="44"></i>
               <h3 class="mt-5 text-body font-extrabold text-brand-deep">The Forum</h3>
-              <p class="mt-2 text-note text-brand-navy">Kinh nghiệm giảng dạy tại The Forum.</p>
+              <!-- <p class="mt-2 text-note text-brand-navy">Kinh nghiệm giảng dạy tại The Forum.</p> -->
             </article>
             <article class="soft-card rounded-2xl border border-brand-navy/20 bg-white p-6">
               <i data-lucide="presentation" class="text-brand-amber" width="44" height="44"></i>
               <h3 class="mt-5 text-body font-extrabold text-brand-deep">ZIM Academy</h3>
-              <p class="mt-2 text-note text-brand-navy">Kinh nghiệm giảng dạy tại ZIM Academy.</p>
+              <!-- <p class="mt-2 text-note text-brand-navy">Kinh nghiệm giảng dạy tại ZIM Academy.</p> -->
             </article>
             <article class="soft-card rounded-2xl border border-brand-navy/20 bg-white p-6">
               <i data-lucide="school" class="text-brand-amber" width="44" height="44"></i>
@@ -487,10 +486,12 @@
           <a href="https://docs.google.com/document/d/1sNRJbbaoTngR9-ILsi2Fzw9BIROCGzkZYeQOYUqsl2s/edit?tab=t.0" target="_blank" rel="noopener noreferrer" class="soft-card focus-ring block rounded-3xl border-2 border-brand-amber bg-white p-7 shadow-sm">
             <h3 class="text-body font-extrabold text-brand-deep">Lớp WIT</h3>
             <p class="mt-2 text-body text-brand-navy">Dự kiến khai giảng vào tháng 11</p>
+            <p class="mt-2 text-note text-brand-amber">Xem chi tiết</p>
           </a>
           <a href="https://docs.google.com/document/d/1Pz8QPOWAeY_mm-an2EgHfpHWxxTaq4Wz-qew5pjgBhk/edit?tab=t.0" target="_blank" rel="noopener noreferrer" class="soft-card focus-ring block rounded-3xl border-2 border-brand-navy/20 bg-brand-navy/5 p-7 shadow-sm">
             <h3 class="text-body font-extrabold text-brand-deep">Lớp HIT</h3>
             <p class="mt-2 text-body text-brand-navy">Dự kiến khai giảng vào tháng 12</p>
+            <p class="mt-2 text-note text-brand-amber">Xem chi tiết</p>
           </a>
         </div>
       </div>
@@ -655,9 +656,9 @@
   <!-- =====================================================================
        FOOTER
        ===================================================================== -->
-  <footer class="w-full bg-brand-deep py-9">
+  <footer class="w-full bg-brand-amber py-9">
     <div class="mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 text-center md:flex-row md:items-center md:justify-between md:text-left lg:px-8">
-      <p class="text-body font-extrabold text-white">WIT</p>
+      <!-- <img class="mx-auto h-10 w-auto md:mx-0" loading="lazy" src="photo/WIT_Logo.png" alt="Logo WIT"> -->
       <!-- <p class="text-note font-medium text-white">WIT</p> -->
     </div>
   </footer>
